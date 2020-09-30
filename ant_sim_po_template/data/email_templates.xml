@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">              
+        <record id="ant_email_template_edi_purchase" model="mail.template">
+            <field name="name">Send PO By Email</field>
+            <field name="subject">${object.company_id.name} Order (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>            
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+            Dear ${object.partner_id.name},<br/>
+
+Please find in attachment a purchase order email confirmation with reference: Quotation ${object.name} amounting ${object.amount_total} ${object.currency_id.name} 
+from ${object.company_id.name}.<br/>
+You may reply to this email if you have any question.
+<br/>
+ ]]>
+            </field>
+            <field name="report_template" ref="purchase.action_report_purchase_order"/>
+            <field name="report_name">PO_${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="user_signature" eval="False"/>
+        </record>   
+    </data>
+</odoo>
+	

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="base_config_settings_form_inherit_spt" model="ir.ui.view">
+        <field name="name">base.config.settings.form.inherit.spt</field>
+        <field name="model">base.config.settings</field>
+        <field name="inherit_id" ref="base_setup.view_general_configuration"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='authentication']" position="after">
+                <group name="tracking">
+                    <label for="id" string="Models Tracking"/>
+                    <div>
+                        <div>
+                            <field name="models_ids_spt"  widget="many2many_tags"/>
+                        </div>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

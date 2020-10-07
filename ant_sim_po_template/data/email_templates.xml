@@ -10,7 +10,7 @@
             <field name="body_html"><![CDATA[
             Dear ${object.partner_id.name},<br/>
 
-Please find in attachment a purchase order email confirmation with reference: Quotation ${object.name} amounting ${object.amount_total} ${object.currency_id.name} 
+Please find in attachment a purchase order email confirmation with reference:${object.partner_ref} Quotation ${object.name} amounting ${object.currency_id.name} ${object.amount_total}   
 from ${object.company_id.name}.<br/>
 You may reply to this email if you have any question.
 <br/>

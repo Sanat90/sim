@@ -18,6 +18,7 @@
     'data': [
 
      'views/account_move.xml',
+     'views/account_payment.xml',
      
     ],
     'installable': True,

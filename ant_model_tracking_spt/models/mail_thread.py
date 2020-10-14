@@ -1,8 +1,37 @@
+import pytz
 from odoo import api, fields, models, _
+from datetime import datetime
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class mail_thread(models.AbstractModel):
     _inherit = 'mail.thread'
+    
+    def check_time_zone(self,t_date):
+        t_date = str(t_date)   
+        print(t_date)   
+#         t_date = str(t_date.replace(tzinfo=None)) 
+#         print(t_date)    
+        if len(t_date) > 20:
+            n = 20 # chunk length
+            t_date_val = t_date[0:19]
+            t_date = t_date_val
+        dt_value = t_date
+        if t_date:
+            timez = 'Asia/Singapore'
+            if self._context and 'tz' in self._context and self._context.get('tz') != False:
+                timez = self._context.get('tz')
+            rec_date_from  = datetime.strptime(t_date, DEFAULT_SERVER_DATETIME_FORMAT)
+#             print(timez)
+            src_tz = pytz.timezone('UTC')
+            dst_tz = pytz.timezone(timez)
+            src_dt = src_tz.localize(rec_date_from, is_dst=True)
+            print(src_dt)
+            dt_value = src_dt.astimezone(dst_tz)
+            dt_value = dt_value.strftime(DEFAULT_SERVER_DATETIME_FORMAT)
+            print(dt_value)
+        return dt_value
+    
 
     @api.multi
     def _message_track(self, tracked_fields, initial):
@@ -27,6 +56,11 @@ class mail_thread(models.AbstractModel):
                 track_visibility = getattr(self._fields[col_name], 'track_visibility', False)
                 initial_value = initial[col_name]
                 new_value = getattr(self, col_name)
+                if col_info['type'] in ['datetime']:
+                    if new_value:
+#                         new_utc_value = self.locatize_time(new_value)
+                        new_value = self.check_time_zone(new_value)
+                print(new_value)
                 if new_value != initial_value and (new_value or initial_value):  # because browse null != False
                     tracking = self.env['mail.tracking.value'].create_tracking_values(initial_value, new_value, col_name, col_info)
                     if tracking:
@@ -53,6 +87,11 @@ class mail_thread(models.AbstractModel):
                 track_visibility = getattr(self._fields[col_name], 'track_visibility', 'onchange')
                 initial_value = initial[col_name]
                 new_value = getattr(self, col_name)
+                
+                if col_info['type'] in ['datetime']:
+                    if new_value:
+#                         new_utc_value = self.locatize_time(new_value)
+                        new_value = self.check_time_zone(new_value)
 
                 if new_value != initial_value and (new_value or initial_value):  # because browse null != False
                     tracking = self.env['mail.tracking.value'].create_tracking_values(initial_value, new_value, col_name, col_info)

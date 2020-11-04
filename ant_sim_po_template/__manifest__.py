@@ -11,7 +11,8 @@ This module is used to add custom Purchase Order Email Template.
     'author': "Accentuate Pte Ltd.",
     'website': "accentuate.com.sg",
     'data': [
-        'data/email_templates.xml'
+        'data/email_templates.xml',
+        'data/ir_config_parameter.xml'
     ],  
     'installable': True,
 }

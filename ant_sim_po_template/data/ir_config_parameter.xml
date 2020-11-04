@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>	
+	<data noupdate="1">
+		<!-- Manifest Data -->
+		<record model="ir.config_parameter" id="po_email_template">
+            <field name="key">email.purchase_order_template</field>
+            <field name="value">ant_sim_po_template.ant_email_template_edi_purchase</field>
+        </record>
+	</data>
+</odoo>

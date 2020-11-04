@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data noupdate="0">              
+    <data noupdate="1">              
         <record id="ant_email_template_edi_purchase" model="mail.template">
             <field name="name">Send PO By Email</field>
             <field name="subject">${object.company_id.name} Order (Ref ${object.name or 'n/a' })</field>

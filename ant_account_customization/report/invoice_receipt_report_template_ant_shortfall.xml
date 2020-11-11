@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="ant_receipt_layout1">
+        <!-- Multicompany -->
+        <t t-if="not o and doc">
+            <t t-set="o" t-value="doc"/>
+        </t>
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"></t>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"></t>
+        </t>
+
+        <t t-call="ant_account_customization.invoice_receipt_header1" />
+        <t t-raw="0" />
+        <t t-call="ant_account_customization.invoice_receipt_footer1" />
+    </template>
+    <template id="invoice_receipt_footer1">
+        <div class="footer">
+            <div class="row">
+                <div class="text-center">
+                    <span> Thank you for your payment.
+                    </span>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-md-6 text-left" style="float:left;">
+                        <span t-esc="company.name"/>
+
+                        <span t-if="company.street">
+                            ,                            <span t-esc="company.street"/>
+                        </span>
+
+                        <span t-if="company.street2">
+                            ,                            <span t-esc="company.street2"/>
+                        </span>
+
+                        <span t-if="company.country_id.name">
+                            ,                            <span t-esc="company.country_id.name"/>
+                        </span>
+
+                        <span t-if="company.zip">
+                            ,                            <span t-esc="company.zip"/>
+                        </span>
+                        <br/>
+                        <span style="">(UEN:<span t-field="company.uen"/>
+)</span>
+
+                    </div>
+                    <div class="col-md-6 float-right" style="float:right;">
+                        <h3 class="mb-3">
+                            <span t-field="company.website"/>
+                        </h3>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+    </template>
+    <template id="invoice_receipt_header1">
+        <div class="header">
+            <div class="row">
+                <div class="col-xs-5">
+                    <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="width:200px;margin-bottom:-60px;margin-top:-50px;"/>
+                    <div>
+                        <div style="font-size:12px; padding:0; display: block;">
+                            <div t-field="o.company_id.name"/>
+                            <div t-field="o.company_id.street"/>
+                            <div>
+                                <span t-field="o.company_id.street2"/>,
+                                <!-- <span t-field="o.company_id.city"/>, -->
+                                <span t-field="o.company_id.country_id"/>
+                                <span t-field="o.company_id.zip"/>
+                            </div>
+                            <div>Tel: 6248 9489 Fax: 6462 5751</div>
+                            <div>UEN No.: <span t-field="o.company_id.uen"/>  GST No:<span t-field="o.company_id.gst_no"/></div>
+                            <div>Website: <span t-field="o.company_id.website"/></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2 text-center">
+                </div>
+                <div class="col-xs-2 col-xs-offset-3 text-right">
+
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="invoice_receipt_document_ant1">
+        <t t-call="ant_account_customization.ant_receipt_layout1">
+            <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+            <div class="page">
+                <div class="oe_structure"/>
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <center>
+                                    <table border="5" cellpadding="0" cellspacing="0" style="padding:0 0 20px; margin:0; font-family: Arial,Helvetica, sans-serif;" width="100%">
+                                        <tr>
+                                            <td align="left" style="line-height:20px; padding:50px 0 15px;" valign="top">
+                                                <div class="col-4 text-left" style="padding-bottom:10px; width:300px">
+                                                    <span t-field="o.partner_id.name"/>
+                                                    <br/>
+                                                    <span t-if="o.partner_id.street" t-field="o.partner_id.street"/>
+                                                    <br/>
+                                                    <span t-if="o.partner_id.street2" t-field="o.partner_id.street2"/>
+                                                    <br/>
+                                                    <span t-if="o.partner_id.country_id.name" t-field="o.partner_id.country_id.name"/>
+                                                    <span t-if="o.partner_id.zip" t-field="o.partner_id.zip"/>
+                                                    <br/>
+                                                    <br/>
+                                                    <span>ATTN. TO <t t-esc="invoice.invoice_attn"/>
+                                                    </span>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br/>
+                                    <br/>
+                                    <div class="text-center" style="font-size:18px;background-color: gray;color:white;border-radius: 25px;border: 1px solid black;padding: 10px;width:200px;margin-right: 500px;">OFFICIAL RECEIPT</div>
+
+                                    <br/>
+                                    <br/>
+                                    <table border="5" cellpadding="0" cellspacing="0" style="padding:0px 0 20px; margin:0; font-family: Arial,Helvetica, sans-serif;" width="100%">
+                                        <tr>
+                                            <td style="font-size:14px;">
+                                                <table border="0" cellpadding="0" cellspacing="0" t-attf-style="color:#fff; text-transform:capitalize; font-size:15px; border-collapse: collapse; width:100%;" wdith="100%">
+                                                    <tr t-attf-style="color: #{o.company_id.text_color};">
+                                                        <td style="width:20%;">RECEIPT NUMBER:</td>
+                                                        <td style="width:30%;text-align:left;">
+                                                            <t style="text-align:left;" t-esc="o.name"/>
+                                                        </td>
+                                                        <td style="width:15%;">PAYMENT MODE:</td>
+                                                        <td style="width:20%;text-align:left;">
+
+
+                                                            <t style="text-align:left;">
+                                                                <span t-esc="o.journal_id.display_name"/>
+                                                            </t>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr t-attf-style="color: #{o.company_id.text_color};">
+                                                        <td>RECEIPT DATE:</td>
+                                                        <td style="text-align:left;">
+                                                            <t style="text-align:left;" t-esc="o.payment_date" t-options='{"widget": "date", "format": "dd/MM/YYYY"}'/>
+                                                        </td>
+                                                        <td>NOTE:</td>
+                                                        <td style="text-align:left;">
+                                                            <t style="text-align:left;" t-esc="o.communication"/>
+                                                        </td>
+                                                    </tr>
+
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <table width="100%" style="margin-top:30px">
+                                        <thead>
+                                            <tr t-att-style="'background-color:#000000; color: #ffffff;'">
+                                                <th rowspan="2" colspan="2" style="vertical-align: middle;border-right: 1px solid #ffffff  !important;">Description</th>
+                                                <th style="width:15%;" class="text-right" valign="middle">Amount</th>
+                                                <th style="border: 1px solid #ffffff  !important;" t-att-colspan="2" class="text-right" valign="middle">GST</th>
+                                                <th class="text-right" valign="middle">Total</th>
+                                            </tr>
+                                            <tr t-att-style="'background-color:#000000; color: #ffffff;'">
+                                                <th class="text-right" valign="middle">S$</th>
+                                                <th style="width:8%;border: 1px solid #ffffff  !important;" class="text-right" valign="middle">%</th>
+                                                <th style="width:10%;border: 1px solid #ffffff  !important;" class="text-right" valign="middle">AMT S$</th>
+                                                <th class="text-right" valign="middle">S$</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="invoice.invoice_line_ids" t-as="l">
+                                                <td style="border-right: 1px solid #000000; border-left: 1px solid #000000;padding-left:5px;padding-bottom:5px;" t-att-colspan="2">
+                                                    <span t-field="l.name"/>
+                                                </td>
+                                                <td style="border-right: 1px solid #000000;" class="text-center">
+                                                    <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
+                                                </td>
+                                                <td style="border-right: 1px solid #000000;" class="text-center">
+                                                    <span t-esc="'{0:,.2f}'.format(sum(x.amount for x in l.invoice_line_tax_ids))"/>
+                                                </td>
+                                                <td style="border-right: 1px solid #000000;" class="text-center">
+                                                    <span t-esc="'{0:,.2f}'.format(l.line_tax_amount)"/>
+                                                </td>
+                                                <td style="border-right: 1px solid #000000;" class="text-center">
+                                                    <span t-esc="'{0:,.2f}'.format(l.price_subtotal + l.line_tax_amount)"/>
+                                                </td>
+                                            </tr>
+                                                <td style="border-right: 1px solid #000000; border-left: 1px solid #000000;padding-left:5px;padding-bottom:5px;" t-att-colspan="2">
+                                                    <t t-set= "difference" t-value="invoice.amount_total + o.payment_difference" > </t>
+                                                    <t t-if="difference &gt; 0">
+                                                        <span>Shortage</span>
+                                                    </t>
+                                                    <t t-if="difference &lt; 0">
+                                                        <span>Excess</span>
+                                                    </t>
+                                                </td>
+                                                <td style="border-right: 1px solid #000000;" class="text-center">
+                                                </td>
+                                                <td style="border-right: 1px solid #000000;" class="text-center">
+                                                </td>
+                                                <td style="border-right: 1px solid #000000;" class="text-center">
+                                                </td>
+                                                <td style="border-right: 1px solid #000000;" class="text-center">
+                                                    <t t-if="difference &gt; 0">
+                                                        <span t-esc="'{0:,.2f}'.format(-invoice.amount_total - o.payment_difference)"/>
+                                                    </t>
+                                                    <t t-if="difference &lt; 0">
+                                                        <span t-esc="'{0:,.2f}'.format(-invoice.amount_total - o.payment_difference)"/>
+                                                    </t>
+                                                </td>
+                                            <tr>
+                                            </tr>
+                                            <t t-set="len_t" t-value="14-len(invoice.invoice_line_ids)"/>
+                                            <tr t-foreach="range(0,len_t)" t-as="It">
+                                                <td style="padding:20px;border-right: 1px solid #111111; border-left: 1px solid #000000;padding-left:5px;padding-bottom:5px;" t-att-colspan="2"/>
+                                                <td style="border-right: 1px solid #000000;" class="text-center"/>
+                                                <td style="border-right: 1px solid #000000;" class="text-center"/>
+                                                <td style="border-right: 1px solid #000000;" class="text-center"/>
+                                                <td style="border-right: 1px solid #000000;" class="text-center"/>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:33%;border-top: 1px solid #000000;font-size:15px;vertical-align: bottom;" class="text-left">
+                                                    <span class="text-left">ISSUED BY:</span>
+                                                    <span t-esc="user.name"/>
+                                                </td>
+                                                <td t-att-style="'background-color:#000000; color: #ffffff;'" style="width:13%;" class="text-right">Total Amount</td>
+                                                <td style="border: 1px solid #000000;padding-right:2px;" class="text-right">
+                                                    <!-- <span t-esc="'{0:,.2f}'.format(invoice.amount_untaxed)"/> -->
+                                                </td>
+                                                <td style="border: 1px solid #000000;padding-right:2px" t-att-colspan="2" class="text-right">
+                                                    <!-- <span t-esc="'{0:,.2f}'.format(invoice.amount_tax)"/> -->
+                                                </td>
+                                                <td style="border: 1px solid #000000;padding-right:2px" class="text-right">
+                                                    <span t-esc="'{0:,.2f}'.format(o.amount)"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table width="100%" style="margin-top:10px;">
+                                        <tr>
+                                            <td>Remark:
+                                                <ul style="list-style-position: inside;">
+
+                                                    <!-- <li> TOTAL AMOUNT DUE : S$ <span t-esc="'{0:,.2f}'.format(invoice.amount_total-total_paid_amount)"/>
+                                                    </li> -->
+                                                    <li> TOTAL AMOUNT EXCLUDING GST : S$ <span t-esc="'{0:,.2f}'.format(invoice.amount_untaxed)"/>
+                                                    </li>
+                                                    <li> TOTAL GST AMOUNT : S$ <span t-esc="'{0:,.2f}'.format(invoice.amount_tax)"/>
+                                                    </li>
+                                                </ul>
+                                                THIS RECEIPT CAN SERVE AS A TAX INVOICE.
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </center>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+    <template id="invoice_receipt_report_template_ant_shortfall">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="invoice">
+                <t t-set="total_paid_amount" t-value="0.0"/>
+                <t t-foreach="invoice.payment_ids" t-as="o">
+                    <t t-set="total_paid_amount" t-value="total_paid_amount+o.amount" />
+                    <t t-call="ant_account_customization.invoice_receipt_document_ant1" />
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

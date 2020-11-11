@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="receipt_cashier_report_wizard_ant_form_view_spt" model="ir.ui.view">
+            <field name="name">receipt.cashier.report.wizard.ant.form.view.spt</field>
+            <field name="model">receipt.cashier.report.wizard.ant</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <!-- <sheet> -->
+                    <group>
+
+                        <group styel="font-color:Bule;">
+
+                            <field name="user_id" />
+                            <field name="payment_method_ids"  widget="many2many_tags"/>
+
+                        </group>
+                        <group styel="font-color:Bule;">
+                            <field name="from_date" />
+                             <field name="to_date" />
+                            <field name="period" />
+
+                        </group>
+                    </group>
+
+                    <!-- </sheet> -->
+
+                    <footer>
+                        <button string='Print' name="%(ant_account_customization.action_receipt_cashier_report_ant)d" type="action" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="action_receipt_cashier_report_wizard_ant" model="ir.actions.act_window">
+            <field name="name">Receipt Register Report By Period</field>
+            <field name="res_model">receipt.cashier.report.wizard.ant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_receipt_cashier_main" name="Receipt Reports" parent="account.menu_finance_reports" sequence="6"/>
+        <menuitem action="action_receipt_cashier_report_wizard_ant" id="menu_action_receipt_cashier_report_wizard_ant"
+                  parent="menu_receipt_cashier_main" sequence="1"/>
+
+    </data>
+</odoo>
+

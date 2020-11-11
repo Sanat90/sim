@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- <template id="cash_register_header">
+       
+    </template> -->
+    <template id="receipt_reversal_register_report_document_ant">
+
+
+        <t t-call="report.html_container">
+            <div class="header">
+                <div class="row">
+
+
+                    <div class="col-md-8 text-center" style="float:left;align:center;margin-left:30%;">
+                        <span>
+                        SINGAPORE INSTITUTE OF MANAGEMENT SOCIETY
+                            <br/>
+                        RECEIPT REVERSAL REGISTER LISTING
+                        </span>
+                        <span>
+
+                        </span>
+                    </div>
+
+
+                    <div class="col-md-4 text-right" style="float:right;">
+                        <ul class="list-inline">
+                            <li>Page :
+                                <span class="page"/>
+                            </li>
+                            <li>To</li>
+                            <li>
+                                <span class="topage"/>
+                            </li>
+                        </ul>
+                            Date :
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                    </div>
+                </div>
+            </div>
+            <div class="page">
+                <t t-set="payment_mode_name" t-value="''"/>
+                <t t-foreach="o.payment_method_ids" t-as="name">
+                    <t t-set="payment_mode_name" t-value="payment_mode_name+','+name.name"/>
+                </t>
+
+
+                <table>
+                    <tr>
+                        <td>SYSTEM ID</td>
+                        <td style="width:20px;text-align:center;"> : </td>
+                        <td>MS</td>
+                    </tr>
+                    <tr>
+                        <td>LOCATION</td>
+                        <td style="width:20px;text-align:center;"> : </td>
+                        <td>ALL</td>
+                    </tr>
+                    <tr>
+                        <td>CASHIER ID</td>
+                        <td style="width:20px;text-align:center;"> : </td>
+                        <td>
+                            <span t-esc="o.user_id.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DATE RANGE</td>
+                        <td style="width:20px;text-align:center;"> : </td>
+                        <td>
+                            <t t-if="o.from_date"> From :<span t-esc="datetime.datetime.strptime(o.from_date, '%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                            </t>
+                            <t t-if="o.to_date">To :<span t-esc="datetime.datetime.strptime(o.to_date, '%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                            </t>
+                        </td>
+                    </tr>
+
+
+                </table>
+
+
+                <br/>
+                <table class="table text-center">
+                    <thead style="border-top:2px solid black;border-bottom:2px solid black;">
+                        <tr>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>S/No.</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Receipt No</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Receipt Date</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Cashier Name</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Type</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Type Description</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Payment Mode</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Payment Amount</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Amount</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>GST</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Total</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Customer No</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Customer Name</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Reversal Remark</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody style="border-bottom: 1px solid transparent;">
+                        <t t-set="total" t-value="0.0"/>
+                        <tr t-foreach="o.get_report_data()" t-as="line">
+                            <td style="border-top: 1px solid transparent;border-bottom: 1px solid transparent;">
+                                <span t-esc="line"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['receipt_no']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['receipt_paid_date']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['cashier_name']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['type']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['type_description']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['payment_mode']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['payment_amount']"/>
+                                <t t-set="total" t-value="total+o.get_report_data()[line]['payment_amount']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['amount']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['gst']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['total_amount']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['customer_no']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['customer_name']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['reversal_remark']"/>
+                            </td>
+
+
+<!--                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">-->
+<!--                                <span t-esc="o.get_report_data()[line]['name']"/>-->
+<!--                            </td>-->
+<!--                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">-->
+<!--                                <span t-esc="o.get_report_data()[line]['state']"/>-->
+<!--                            </td>-->
+<!--                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">-->
+<!--                                <span t-esc="o.get_report_data()[line]['date']"/>-->
+<!--                            </td>-->
+<!--                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">-->
+<!--                                <span t-esc="o.get_report_data()[line]['mode']"/>-->
+<!--                            </td>-->
+<!--                            <td style="border-top: 1px solid transparent;">-->
+<!--                                <span t-esc="o.get_report_data()[line]['reference']"/>-->
+<!--                            </td>-->
+<!--                            <td style="border-top: 1px solid transparent; text-align: right;">-->
+<!--                                <span t-esc="'{0:,.2f}'.format(o.get_report_data()[line]['amount'])"/>-->
+<!--                                <t t-set="total" t-value="total + o.get_report_data()[line]['amount']"/>-->
+<!--                            </td>-->
+                        </tr>
+                    </tbody>
+                    <tr style="border-top: 2px solid transparent;">
+                        <th/>
+                        <th/>
+                        <th/>
+                        <th/>
+                        <th>
+                            <span>Total :</span>
+                        </th>
+                        <th >
+                            <span t-esc="'{0:,.2f}'.format(total)"/>
+                        </th>
+                        <th/>
+                        <th/>
+                        <th/>
+                        <th/>
+                        <th/>
+                        <th/>
+                        <th/>
+                        <th/>
+                        <th/>
+                    </tr>
+                </table>
+
+                <br/>
+
+                <table>
+
+                    <tr>
+                        <th>SELECTION CRITERIA</th>
+                    </tr>
+
+                    <tr>
+                        <td>SYSTEM ID</td>
+                        <td style="width:20px;text-align:center;"> : </td>
+                        <td>MS</td>
+                    </tr>
+                    <tr>
+                        <td>LOCATION</td>
+                        <td style="width:20px;text-align:center;"> : </td>
+                        <td>ALL</td>
+                    </tr>
+                    <tr>
+                        <td>CASHIER ID</td>
+                        <td style="width:20px;text-align:center;"> : </td>
+                        <td>
+                            <span t-esc="o.user_id.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>PAYMENT MODE</td>
+                        <td style="width:20px;text-align:center;"> : </td>
+                        <td>
+                            <span t-esc="payment_mode_name[1:]"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>DATE RANGE</td>
+                        <td style="width:20px;text-align:center;"> : </td>
+                        <td>
+                            <t t-if="o.from_date"> From :<span t-esc="datetime.datetime.strptime(o.from_date, '%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                            </t>
+                            <t t-if="o.to_date">To :<span t-esc="datetime.datetime.strptime(o.to_date, '%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                            </t>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>PRINT REPORT</td>
+                        <td style="width:20px;text-align:center;"> : </td>
+                        <td>
+                            CASHIER REGISTER
+                        </td>
+                    </tr>
+
+                </table>
+
+
+
+            </div>
+
+            <div class="footer" style="border-top: 1px solid black;">
+                <ul class="list-inline">
+                    <li>
+           User :
+                    </li>
+                    <li>
+                        <span t-esc="o.user_id.name"/>
+                    </li>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+
+                    <li>Departmen : </li>
+                    <li>
+            FIN
+                    </li>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+
+                    <li>Start Time :</li>
+                    <li>
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S')"/>
+                    </li>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li/>
+                    <li>End Time :</li>
+                    <li>
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S')"/>
+                    </li>
+                </ul>
+
+
+            </div>
+
+        </t>
+    </template>
+
+    <template id="receipt_reversal_register_report_template_ant">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="ant_account_customization.receipt_reversal_register_report_document_ant" />
+        </t>
+    </template>
+
+</odoo>

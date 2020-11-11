@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                string="Bank Slip Report"
+                id="action_bank_slip_report_ant"
+                model="bank.slip.report.wizard.ant"
+                report_type="qweb-pdf"
+                name="ant_account_customization.bank_slip_report_template_ant"
+                file="ant_account_customization.bank_slip_report_template_ant"
+            />
+
+         <report
+                string="Cash Register Report"
+                id="action_cash_register_report_ant"
+                model="cash.register.report.wizard.ant"
+                report_type="qweb-pdf"
+                name="ant_account_customization.cash_register_report_template_ant"
+                file="ant_account_customization.cash_register_report_template_ant"
+            />
+        
+        <report
+                string="Receipt"
+                id="action_invoice_receipt_report_ant"
+                model="account.invoice"
+                report_type="qweb-pdf"
+                name="ant_account_customization.invoice_receipt_report_template_ant"
+                file="ant_account_customization.invoice_receipt_report_template_ant"
+            />
+            <record id="paperformat_report_custom_repost_landscape" model="report.paperformat">
+        <field name="name">Custom Landscape paper format</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">50</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+
+        <report
+                string="Receipt Cashier Report"
+                id="action_receipt_cashier_report_ant"
+                model="receipt.cashier.report.wizard.ant"
+                report_type="qweb-pdf"
+                name="ant_account_customization.receipt_cashier_report_template_ant"
+                file="ant_account_customization.receipt_cashier_report_template_ant"
+                paperformat="paperformat_report_custom_repost_landscape"
+            />
+
+        <report
+                string="Receipt Register Report"
+                id="action_receipt_register_report_ant"
+                model="receipt.register.report.wizard.ant"
+                report_type="qweb-pdf"
+                name="ant_account_customization.receipt_register_report_template_ant"
+                file="ant_account_customization.receipt_register_report_template_ant"
+                paperformat="paperformat_report_custom_repost_landscape"
+            />
+        <report
+                string="Receipt Reversal Register Report"
+                id="action_receipt_reversal_register_report_ant"
+                model="receipt.reversal.report.wizard.ant"
+                report_type="qweb-pdf"
+                name="ant_account_customization.receipt_reversal_register_report_template_ant"
+                file="ant_account_customization.receipt_reversal_register_report_template_ant"
+                paperformat="paperformat_report_custom_repost_landscape"
+            />
+
+        <report
+                string="Receipt Receipt Payment Report"
+                id="action_receipt_payment_report_ant"
+                model="receipt.payment.report.wizard.ant"
+                report_type="qweb-pdf"
+                name="ant_account_customization.receipt_receipt_payment_report_template_ant"
+                file="ant_account_customization.receipt_receipt_payment_report_template_ant"
+                paperformat="paperformat_report_custom_repost_landscape"
+            />
+
+    </data>
+</odoo>

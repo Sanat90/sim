@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="cash_register_report_wizard_ant_form_view_spt" model="ir.ui.view">
+            <field name="name">cash.register.report.wizard.ant.form.view.spt</field>
+            <field name="model">cash.register.report.wizard.ant</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <!-- <sheet> -->
+                    <group>
+
+                        <group styel="font-color:Bule;">
+
+                            <field name="user_id" />
+                            <field name="payment_method_ids"  widget="many2many_tags"/>
+
+                        </group>
+                        <group styel="font-color:Bule;">
+                            <field name="from_date" />
+                            <field name="to_date" />
+
+                        </group>
+                    </group>
+
+                    <!-- </sheet> -->
+
+                    <footer>
+                        <button string='Print' name="%(ant_account_customization.action_cash_register_report_ant)d" type="action" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="action_cash_register_report_wizard_ant" model="ir.actions.act_window">
+            <field name="name">Cash Register Report</field>
+            <field name="res_model">cash.register.report.wizard.ant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_finance_sim_reports" name="SIM Reports" parent="account.menu_finance_reports" sequence="5"/>
+        <menuitem action="action_cash_register_report_wizard_ant" id="menu_action_cash_register_report_wizard_ant" parent="menu_finance_sim_reports" sequence="1"/>
+
+    </data>
+</odoo>
+

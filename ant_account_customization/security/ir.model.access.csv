@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ant_cancel_payment_wizard_user,ant_cancel_payment_wizard_user,model_ant_cancel_payment_wizard,base.group_user,1,1,1,1

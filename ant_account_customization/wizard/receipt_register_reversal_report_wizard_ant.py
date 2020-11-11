@@ -30,8 +30,6 @@ class receipt_reversal_report_wizard_ant(models.TransientModel):
         report_data_dict = {}
         count = 0
 
-
-
         for payment in payment_invoice_ids:
             invoice_obj = self.env['account.invoice']
             inv_domain = [('id', '=', payment.invoice_ids.id)]
@@ -53,7 +51,9 @@ class receipt_reversal_report_wizard_ant(models.TransientModel):
                         'total_amount': payment.amount,
                         'status': invoice.state,
                         'company': payment.company_id.name,
-                        'reversal_remark': payment.communication,
+                        'reversal_remark': payment.reversal_remark,
+                        'reversal_by':payment.reversal_by.name if payment.reversal_by else '',
+                        'cancel_date':payment.cancel_date
                     }
         return report_data_dict
 

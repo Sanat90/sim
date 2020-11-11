@@ -12,9 +12,11 @@
       This module account related changes.
     """,
     'depends': [
-        'general_template','ant_sim_accounting_custom', 'base' , 'account'
+        'general_template','ant_sim_accounting_custom', 'base' , 'account','account_cancel'
     ],
     'data': [
+        'security/ir.model.access.csv',
+        'view/account_payment_shortfall.xml',
         'report/cash_register_report_ant.xml',
         'report/invoice_receipt_report_template_ant.xml',
         'report/cash_register_report_template_ant.xml',
@@ -24,6 +26,7 @@
         'wizard/receipt_payment_report_wizard_ant.xml',
         'wizard/receipt_register_report_wizard_ant.xml',
         'wizard/receipt_reversal_report_wizard_ant.xml',
+        'wizard/ant_cancel_payment.xml',
         'report/bank_slip_report_template_ant.xml',
         'report/receipt_reversal_report_template_ant.xml',
         'report/receipt_cashier_report_template_ant.xml',

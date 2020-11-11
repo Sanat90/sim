@@ -7,3 +7,4 @@ from . import receipt_register_reversal_report_wizard_ant
 from . import receipt_cashier_report_wizard_ant
 from . import receipt_register_payment_report_wizard_ant
 from . import receipt_register_report_wizard_ant
+from . import ant_cancel_payment

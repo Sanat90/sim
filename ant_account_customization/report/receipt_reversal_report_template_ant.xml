@@ -93,7 +93,7 @@
                             </th>
                             <th class="text-center" style="border-bottom: 1px solid black !important;">
                                 <span>Cashier Name</span>
-                            </th>
+                            </th>                            
                             <th class="text-center" style="border-bottom: 1px solid black !important;">
                                 <span>Type</span>
                             </th>
@@ -120,6 +120,13 @@
                             </th>
                             <th class="text-center" style="border-bottom: 1px solid black !important;">
                                 <span>Customer Name</span>
+                            </th>
+                           
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Cancelled Date</span>
+                            </th>
+                            <th class="text-center" style="border-bottom: 1px solid black !important;">
+                                <span>Reversal By</span>
                             </th>
                             <th class="text-center" style="border-bottom: 1px solid black !important;">
                                 <span>Reversal Remark</span>
@@ -168,6 +175,12 @@
                             </td>
                             <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
                                 <span t-esc="o.get_report_data()[line]['customer_name']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['cancel_date']"/>
+                            </td>
+                            <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
+                                <span t-esc="o.get_report_data()[line]['reversal_by']"/>
                             </td>
                             <td style="border-top: 1px solid transparent; border-bottom: 1px solid transparent;">
                                 <span t-esc="o.get_report_data()[line]['reversal_remark']"/>

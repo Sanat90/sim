@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="ant_cancel_payment_wizard_form_view" model="ir.ui.view">
+            <field name="name">ant.cancel.payment.wizard</field>
+            <field name="model">ant.cancel.payment.wizard</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <!-- <sheet> -->
+                    <group>
+                        <group style="font-color:Bule;">
+                            <field name="reversal_by" required="1" />
+                        </group>
+                        <group style="font-color:Bule;">
+                            <field name="cancel_date" required="1" />
+                        </group>
+                    </group>
+					<group>
+						<field name="reversal_remark"  required="1"/>
+					</group>
+                    <!-- </sheet> -->
+
+                    <footer>
+                        <button string='Cancel Payment' confirm="Are you sure to cancel the payment records ?" name="execute_cancel" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
+
